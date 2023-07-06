@@ -1,0 +1,381 @@
+Q1. Reverse an Array
+
+Sol : 
+
+# include<iostream>
+using namespace std;
+
+void reverse_array(int array[] , int end )
+{
+    int start = 0 , temp;
+    while(start< end)
+    {
+        temp =array[end] ;
+        array[end] = array[start];
+        array[start] = temp ;
+        start++;
+        end--;
+
+    }
+}
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    int arr[] = { 1, 2,3 ,4 , 5 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    reverse_array(arr , n-1);
+    printarray(arr , n);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Q2. Find Maximum  and minimum of array.
+
+solution :
+
+# include<iostream>
+using namespace std;
+
+struct Pair
+{
+    int min;
+    int max;
+};
+
+struct Pair find_max_min(int array[] , int n)
+{
+    struct Pair minmax;
+    minmax.max = array[0];
+    minmax.min = array[0];
+    for(int i = 1 ; i<=n-1 ; i++)
+    {
+        if(array[i]> minmax.max)
+        {
+            minmax.max = array[i];
+        }
+        if(array[i]<minmax.min)
+        {
+            minmax.min = array[i];
+        }
+    }
+
+    return minmax;
+
+}
+
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    int arr[] = { 1, 2,3 ,4 , 5 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    struct Pair minmax = find_max_min(arr ,n);
+    cout<<"Min No is "<<minmax.min<<" max No is "<<minmax.max<<endl;
+}
+
+##########################################################################################################################################
+
+Q . Bubble sort  
+
+# include<iostream>
+using namespace std;
+
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+
+void Bubble_sort(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        int temp ;
+        bool swap = false;
+        for(int j = 0 ; j<size-i-1 ; j++)
+        {
+            
+            if(array[j] > array[j+1])
+            {
+                temp = array[j+1];
+                array[j+1] = array[j];
+                array[j]= temp;
+                swap = true;
+
+            }
+        }
+        if(swap == false)
+        {
+            break;
+        }
+    }
+}
+
+int main()
+{
+    int arr[] = { 9 ,85 , -20 , 22,1, 19,3 ,-4 ,67,32 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    Bubble_sort(arr , n);
+    printarray(arr , n);
+
+}
+
+############################################################################################################################################
+Q. Selection Sort:
+solution :
+
+# include<iostream>
+using namespace std;
+
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+
+void Selection_Sort(int array[] , int size)
+{
+    for(int i = 0 ; i<size-1 ; i++)
+    {
+        int smallest = array[i] , temp;
+        for(int j = i+1 ; j<size ; j++)
+        {
+            
+            if(array[j] < smallest)
+            {  
+               temp = array[j];
+               array[j] = smallest;
+               smallest = temp;
+            }
+        }
+        array[i] = smallest;
+    }
+}
+
+int main()
+{
+    int arr[] = { 9 ,85 , -20 , 22,1, 19,3 ,-4 ,67,32 ,-2};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    Selection_Sort(arr , n);
+    printarray(arr , n);
+}
+
+#############################################################################################################################################
+
+Q.Insertion Sort :
+
+Solution :
+
+# include<iostream>
+using namespace std;
+
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+void Insertion_Sort(int array[] , int size)
+{
+    for(int i = 1 ; i<size ; i++)
+    {   
+        int temp;
+        while((array[i-1]>array[i]) && (i> 0) )
+        {
+            if(array[i]<array[i-1])
+            {
+                temp = array[i];
+                array[i] = array[i-1];
+                array[i-1] = temp ;
+                i--;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int arr[] = { 9 ,85 , -20 , 22,1, 19,3 ,-4 ,67,32 ,-2};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    Insertion_Sort(arr , n);
+    printarray(arr , n);
+}
+
+
+Q. Quicksort:
+Solution :
+
+# include<iostream>
+using namespace std;
+void swap(int array[] , int i , int j)
+{
+    int temp = array[i];
+    array[i] = array[j];
+    array[j] = temp ;
+}
+
+int partition(int array[] , int start , int end)
+{
+    int pivot = array[end];
+    int i = start -1 ;
+    for(int j= start ;j<end ;j++ )
+    {
+        if(array[j]<pivot)
+        {
+            i++;
+            swap(array , i, j);
+        }
+    }
+    swap(array , i+1 , end);
+    return i+1 ;
+}
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+
+void Quick_sort(int array[] , int start ,int end)
+{
+    if(start < end)
+    {
+        int p = partition(array , start , end) ;
+        Quick_sort(array , start , p-1);
+        Quick_sort(array , p+1 , end);
+    }   
+}
+
+int main()
+{
+    int arr[] = { 9 ,85 , -20 , 22,1, 19,3 ,-4 ,67,32 ,-2};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    Quick_sort(arr ,0 ,  n-1);
+    printarray(arr , n);
+
+
+}
+
+Q. Merge Sort 
+Solution :
+
+# include<iostream>
+using namespace std;
+
+
+void merge(int array[] , int l , int mid , int r)
+{
+    int n1 = mid -l +1 ;
+    int n2 = r - mid ;
+
+    int arr1[n1] , arr2[n2];
+    for (int i = 0 ; i<n1 ; i++)
+    {
+        arr1[i] = array[l+i];
+    }
+    for (int i = 0 ; i<n2 ; i++)
+    {
+        arr2[i] = array[mid+i+1];
+    }
+
+    int i = 0 ;
+    int j = 0 ;
+    int k = l ;
+
+    while(i<n1 && j<n2)
+    {
+        if(arr1[i]<arr2[j])
+        {
+            array[k] = arr1[i];
+            k++ ; i++ ;
+        }
+        else 
+        {
+            array[k] = arr2[j];
+            k++ ; j++ ;
+        }
+    }
+    while(i<n1)
+    {
+        array[k] = arr1[i];
+            k++ , i++ ;
+    }
+    while(j<n2)
+    {
+        array[k] = arr2[j];
+            k++ , j++ ;
+    }
+ }
+
+
+
+void Merge_sort(int array[] , int start , int end)
+{
+    if(start< end)
+    {
+        int mid = (start + end)/2 ;
+        Merge_sort(array , start, mid);
+        Merge_sort(array , mid+1, end );
+        merge(array , start , mid, end);
+    }
+
+}
+
+void printarray(int array[] , int size)
+{
+    for(int i = 0 ; i<size ; i++)
+    {
+        cout<< array[i]<<"  ";
+    }
+    cout<<endl;
+}
+
+
+int main()
+{
+    int arr[] = { 9 ,85 , -20 , 22,1, 19,3 ,-4 ,67,32 ,-2};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printarray(arr , n);
+    Merge_sort(arr ,0 ,  n-1);
+    printarray(arr , n);
+
+
+}
+
